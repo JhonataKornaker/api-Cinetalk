@@ -2,7 +2,6 @@ package com.example.api_cinetalk.controller;
 
 import com.example.api_cinetalk.dto.FilmeDTO;
 import com.example.api_cinetalk.model.Filme;
-import com.example.api_cinetalk.model.Usuario;
 import com.example.api_cinetalk.repository.UsuarioRepository;
 import com.example.api_cinetalk.service.FilmeService;
 import com.example.api_cinetalk.service.JwtService;
@@ -83,6 +82,18 @@ public class FilmeController {
         }
 
         return ResponseEntity.ok(filmes);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deletarFilme(@PathVariable String id) {
+        filmeService.deletarFilme(id);
+        return ResponseEntity.ok("Filme deletado com sucesso!");
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Filme> atualizarFilmeParcial(@RequestBody FilmeDTO filmeDTO, @PathVariable String id, @RequestParam String userId) {
+        Filme filmeAtualizado = filmeService.atualizarFilme(filmeDTO, id, userId);
+        return new ResponseEntity<>(filmeAtualizado, HttpStatus.OK);  // HTTP 200 OK
     }
 }
 

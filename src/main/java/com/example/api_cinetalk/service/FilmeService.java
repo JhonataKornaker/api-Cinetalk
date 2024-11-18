@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FilmeService {
@@ -41,6 +40,26 @@ public class FilmeService {
     }
 
     public void deletarFilme(String id) {
+        if(!filmeRepository.existsById(id)) {
+            throw new RuntimeException("Filme nao encontrado");
+        }
         filmeRepository.deleteById(id);
+    }
+
+    public Filme atualizarFilme(FilmeDTO filmeDTO, String filmeId, String userId) {
+
+        Filme filmeExistente = filmeRepository.findById(filmeId)
+                .orElseThrow(() -> new RuntimeException("Filme nao encontrado"));
+
+        Usuario user = usuarioRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+
+        filmeExistente.setNome(filmeDTO.nome());
+        filmeExistente.setGenero(filmeDTO.genero());
+        filmeExistente.setAvaliacao(filmeDTO.avaliacao());
+        filmeExistente.setComentario(filmeDTO.comentario());
+        filmeExistente.setUsuario(user);
+
+        return filmeRepository.save(filmeExistente);
     }
 }
