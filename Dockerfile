@@ -8,7 +8,8 @@ WORKDIR /app
 RUN mvn clean package
 
 # Copiar o arquivo JAR gerado para dentro do container
-COPY target/api-cinetalk-0.0.1-SNAPSHOT.jar /app/app.jar
+#COPY target/api-cinetalk-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Expor a porta onde a aplicação vai rodar
 EXPOSE 8080
