@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/api-cinetalk-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Expor a porta onde a aplicação vai rodar
-EXPOSE 8080
+EXPOSE 8081
 
 # Definir o comando para rodar a aplicação
-CMD ["java", "-jar", "/app/app.jar", "--server.port=${PORT:8080}"]
+CMD ["java", "-jar", "/app/app.jar", "--server.port=${PORT:8081}"]
