@@ -11,4 +11,4 @@ COPY target/api-cinetalk-0.0.1-SNAPSHOT.jar /app/app.jar
 EXPOSE 8080
 
 # Definir o comando para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+CMD ["java", "-jar", "/app/app.jar", "--server.port=${PORT:8080}"]
