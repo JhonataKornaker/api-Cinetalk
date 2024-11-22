@@ -1,18 +1,20 @@
-# Usar a imagem oficial do OpenJDK como base
-FROM openjdk:17-jdk-slim
+# Use uma imagem base do Maven para construir
+FROM maven:3.8.6-openjdk-17 AS build
 
-# Definir o diretório de trabalho
+# Copie os arquivos para o container
+COPY . /app
+
+# Defina o diretório de trabalho
 WORKDIR /app
 
 # Execute o build do projeto
 RUN mvn clean package
 
-# Copiar o arquivo JAR gerado para dentro do container
-#COPY target/api-cinetalk-0.0.1-SNAPSHOT.jar /app/app.jar
+# Use uma imagem mais leve para rodar
+FROM openjdk:17-jdk-slim
+
+# Copie o JAR do estágio de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Expor a porta onde a aplicação vai rodar
-EXPOSE 8080
-
-# Definir o comando para rodar a aplicação
-CMD ["java", "-jar", "/app/app.jar"]
+# Execute o aplicativo
+CMD ["java", "-jar", "app.jar"]
