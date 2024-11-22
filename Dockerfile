@@ -1,5 +1,5 @@
 # Use uma imagem base do Maven para construir
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.8-eclipse-temurin-17 AS build
 
 # Copie os arquivos para o container
 COPY . /app
