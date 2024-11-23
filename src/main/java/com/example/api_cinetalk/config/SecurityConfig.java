@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Desativa CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/register", "/api/login").permitAll() // Permite acesso sem autenticação
+                        .requestMatchers("/api/register", "/api/login", "/error").permitAll() // Permite acesso sem autenticação
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "swagger-ui.html").permitAll()
                         .anyRequest().authenticated() // Requer autenticação para outras requisições
                 )

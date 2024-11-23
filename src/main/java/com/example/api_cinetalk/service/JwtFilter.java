@@ -56,6 +56,8 @@ public class JwtFilter  extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
         // Ignore rotas públicas
-        return path.equals("/api/register") || path.equals("/api/login");
+        return path.startsWith("/api/register") || path.startsWith("/api/login")
+                || path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")
+                || path.startsWith("/error");
     }
 }
