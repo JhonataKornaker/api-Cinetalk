@@ -84,7 +84,7 @@ public class FilmeController {
         return ResponseEntity.ok(filmes);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarFilme(@PathVariable String id) {
         filmeService.deletarFilme(id);
         return ResponseEntity.ok("Filme deletado com sucesso!");
